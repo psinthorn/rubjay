@@ -1,0 +1,39 @@
+<div class="container">
+
+
+    <h1>List of Ideas</h1>
+    <hr> {{#each ideas}}
+
+
+    <div class="card mb-2">
+        <div class="card-body">
+            <h3>{{title}}</h3>
+            <p>{{details}}</p>
+            <br>
+            <label for="date" class="text-secondary">{{date}}</label>
+       
+
+
+        <div class="btn-group btn-inline ml-2">
+            <a href="ideas/edit/{{id}}" class="btn btn-warning mb-2">Edit</a>
+        </div>
+
+
+
+        <form action="/ideas/{{id}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <div class="btn-group inline pull-left ml-2">
+                <button type="submit" class="btn btn-danger btn-inline mb-2" >Delete</button>
+            </div>
+        </form>
+     </div>
+
+    </div>
+
+
+
+{{else}}
+<p>No ideas found</p>
+{{/each}}
+
+</div>
