@@ -1,23 +1,27 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const path = require('path');
 const methodOverride = require('method-override');
+const session = require('express-session');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
+//load router
+const users = require('./routers/users');
+const ideas = require('./routers/ideas');
 
 const app = express();
 
 //Map global promise - get rid of warning
 mongoose.Promise = global.Promise;
 //Connect to mongoDB by Mongoose
-mongoose.connect('mongodb://localhost/ecovid-ideos', {
+mongoose.connect('mongodb://localhost/ecovideos', {
     useMongoClient: true
 })
 .then(() => console.log('Connected to mongoDB...'))
 .catch(err => console.log(err));
 
-//Load mongoose ideas model schema
-require('./models/Ideas'); 
-const Idea = mongoose.model('ideas');
 
 //Handlebars middleware
 app.engine('handlebars', exphbs({
@@ -33,6 +37,27 @@ app.use(bodyParser.json());
 //method-override middleware 
 app.use(methodOverride('_method'));
 
+//static public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+//express session middleware
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+//connect-flash middleware
+app.use(flash());
+
+//global variable
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
+
 //Start route here
 //Index route page
 app.get('/', (req, res) => {
@@ -45,96 +70,11 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
-//Ideas view page
-app.get('/ideas', (req, res) => {
-    Idea.find({})
-    .sort({date: 'desc'})
-    .then(ideas => {
-        res.render('./ideas/ideas', {ideas: ideas})
-    });   
-});
 
 
-//Ideas add page
-app.get('/ideas/add', (req, res) => {
-    res.render('./ideas/add');
-});
-
-//Process post from
-app.post('/ideas', (req, res) => {
-    const errors = [];
-    const success = 'Input Success';
-    if(!req.body.title){
-        errors.push({text: 'Please input title'});
-    }
-
-    if(!req.body.details){
-        errors.push({text: 'Please input details'});
-    }
-    if(errors.length > 0 ){
-        res.render('ideas/add', {
-        errors: errors,
-        title: req.body.title,
-        details: req.body.details
-    });
-
-    }else{
-
-        const newUser = {
-            title: req.body.title,
-            details: req.body.details
-        }
-
-        console.log(newUser);
-
-        new Idea(newUser).save()
-        .then(idea => {
-            res.redirect('/ideas')
-        })      
-    }
-});
-
-//Ideas edit page
-app.get('/ideas/edit/:id', (req, res) => {
-    const id = req.params.id;
-    Idea.findOne({
-        _id: id
-    })
-    .then(idea => {
-        res.render('ideas/edit', {
-            idea: idea
-        });
-    });  
-});
-
-
-app.put('/ideas/:id', (req, res) => {
-    const id = req.params.id;
-    Idea.findOne({
-        _id: id
-    })
-    .then(idea => {
-        idea.title = req.body.title;
-        idea.details = req.body.details;
-
-        idea.save()
-        .then(idea => {
-            res.redirect('/ideas');
-        });
-    });
-});
-
-
-//Delete idea
-app.delete('/ideas/:id', (req, res) => {
-    Idea.remove({_id: req.params.id})
-    .then(() => {
-        res.redirect('/ideas');
-    });
-    //res.send('delete');
-});
-
-
+//use Router
+app.use('/users', users);
+app.use('/ideas', ideas);
 
 
 //NodeJS server Config
