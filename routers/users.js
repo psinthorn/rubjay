@@ -46,13 +46,13 @@ router.post('/register', (req, res) => {
 
     if (password != password2) {
         errors.push({
-            text: 'Password not match'
+            text: 'Password is not match'
         });
     }
 
     if (password.length < 4) {
         errors.push({
-            text: 'Password must be at lease 4 charecters'
+            text: 'Password must be at lease 4 characters'
         });
     }
     if (errors.length > 0) {
@@ -87,7 +87,7 @@ router.post('/register', (req, res) => {
         
                         newUser.save()
                             .then(users => {
-                                req.flash('success_mag', 'Register Success and now you can login');
+                                req.flash('success_msg', 'Register Success and now you can login');
                                 res.redirect('/users/login');
                              
                             })
