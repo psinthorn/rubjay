@@ -1,7 +1,7 @@
 <div class="container">
 
 
-    <h1>List of Ideas</h1>
+    <h1>Daily Memo <a type="button" href="/ideas/add" class="btn btn-success">+</a></h1>
     <hr> {{#each ideas}}
 
 
@@ -10,10 +10,10 @@
             <h3>{{title}}</h3>
             <p>{{details}}</p>
             <br>
-            <label for="date" class="text-secondary">{{date}}</label>
+            <label for="date" class="text-secondary">Memo Date-Time: {{date}}</label>
        
 
-
+        <div class="row">
         <div class="btn-group btn-inline ml-2">
             <a href="ideas/edit/{{id}}" class="btn btn-warning mb-2">Edit</a>
         </div>
@@ -26,6 +26,7 @@
                 <button type="submit" class="btn btn-danger btn-inline mb-2" >Delete</button>
             </div>
         </form>
+        </div>
      </div>
 
     </div>

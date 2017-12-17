@@ -1,27 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const expenseShema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String
 
-//Ideas schema
+    },
+    images: {
+        type: String
 
-const ideaSchema = new Schema({
-    title:{
+    },
+    expense: {
         type: String,
         required: true
     },
-    details: {
-        type: String,
-        required: true
-    },
-    user: {
-        type: String,
-        required: true
-    },
-    date:{
+    date: {
         type: Date,
         default: Date.now
     }
-
 });
 
-mongoose.model('ideas', ideaSchema);
+mongoose.model('expense', expenseShema);
