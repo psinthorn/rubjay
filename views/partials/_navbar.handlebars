@@ -1,49 +1,58 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3" <div class="container">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">RubJay</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{{!-- <div class="jumbotron text-center"> --}}
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3" <div class="container">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">RubJay</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <ul class="navbar-nav ml-auto">
-                {{#if user}}
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Daily Memo</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="/ideas">List of Memo</a>
-                        <a class="dropdown-item" href="/ideas/add">Add</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="/users/logout">Logout</a>
-                </li>
-                {{else}}
-                 <li class="nav-item">
-                    <a class="nav-link" href="/users/register">Register</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Login</a>
-                </li>
-                {{/if}}
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    {{#if user}}
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Daily Memo</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="/ideas">List of Memo</a>
+                            <a class="dropdown-item" href="/ideas/add">Add</a>
+                            <a class="dropdown-item" href="#">Dashboad</a>
+                            {{!-- <a class="dropdown-item" href="#">Something else here</a> --}}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/logout">Logout</a>
+                    </li>
+                    {{else}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">Login</a>
+                    </li>
+                    {{/if}}
+                </ul>
+                {{!-- <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> --}}
+            </div>
         </div>
-    </div>
-    </div>
+
 </nav>
+
+    {{!-- <br>
+    <h1 class="display-3">Daily expense memo</h1>
+    <p class="lead">Control your balance by add your daily expense memo</p>
+    <a href="/users/register" class="btn btn-dark btn-lg">Register Now</a>
+
+</div> --}}
