@@ -14,8 +14,10 @@
 
     {{> _navbar}}
     <div class="container-fluid">
-        {{> _msg}}
-        {{> _errors}}
+        <div class="container">
+            {{> _msg}} 
+            {{> _errors}}
+        </div>
         {{{body}}}
     </div>
     {{> _footer}}
