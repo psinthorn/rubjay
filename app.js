@@ -15,12 +15,15 @@ const ideas = require('./routers/ideas');
 //load passport 
 require('./config/passport')(passport);
 
+//load mongoDB config
+const db = require('./config/database');
+
 const app = express();
 
 //Map global promise - get rid of warning
 mongoose.Promise = global.Promise;
 //Connect to mongoDB by Mongoose
-mongoose.connect('mongodb://localhost/ecovideos', {
+mongoose.connect(db.mongoURL, {
     useMongoClient: true
 })
 .then(() => console.log('Connected to mongoDB...'))
@@ -86,7 +89,7 @@ app.use('/ideas', ideas);
 
 
 //NodeJS server Config
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log('Node started on port' + port);
